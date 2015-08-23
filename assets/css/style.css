@@ -1,0 +1,647 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font: 100%/1.5 sans-serif;
+  margin: 0;
+  padding: 2em;
+}
+
+svg {
+  min-width: 2em;
+  max-width: 16em;
+}
+
+.container {
+  clear: both;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+.container-slider {
+  position: relative;
+  height: 3em;
+  margin-bottom: 1em;
+}
+
+input[type='range'] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0;
+  width: 31.875em;
+  height: 2.375em;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: -webkit-repeating-linear-gradient(0deg, #101520, #101520 1px, #1d263e 1px, #1d263e 4px, #43568c 4px, #43568c 5px, transparent 5px, transparent 5em), -webkit-repeating-linear-gradient(0deg, #101520, #101520 1px, #1d263e 1px, #1d263e 2px, #43568c 2px, #43568c 3px, transparent 3px, transparent 0.5em);
+  background: repeating-linear-gradient(90deg, #101520, #101520 1px, #1d263e 1px, #1d263e 4px, #43568c 4px, #43568c 5px, transparent 5px, transparent 5em), repeating-linear-gradient(90deg, #101520, #101520 1px, #1d263e 1px, #1d263e 2px, #43568c 2px, #43568c 3px, transparent 3px, transparent 0.5em);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: calc(30em + 5px) 2.375em, calc(30em + 5px) 1.75em;
+  opacity: .5;
+  font-size: 1em;
+  cursor: pointer;
+}
+input[type='range'], input[type='range']::-webkit-slider-runnable-track, input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  position: relative;
+  width: 31.875em;
+  height: 1em;
+  border-radius: 0.5em;
+  background: transparent;
+}
+.js input[type='range']::-webkit-slider-runnable-track {
+  background: -webkit-linear-gradient(0deg, #ffe032, #eeb533) no-repeat;
+  background: linear-gradient(90deg, #ffe032, #eeb533) no-repeat;
+  background-size: 33% 100%;
+}
+input[type='range']::-moz-range-track {
+  width: 31.875em;
+  height: 1em;
+  border-radius: 0.5em;
+  background: transparent;
+}
+input[type='range']::-ms-track {
+  border: none;
+  width: 31.875em;
+  height: 1em;
+  border-radius: 0.5em;
+  background: transparent;
+  color: transparent;
+}
+input[type='range']::-moz-range-progress {
+  height: 1em;
+  border-radius: 0.5em 0.25em 0.25em 0.5em / 0.5em;
+  background: linear-gradient(90deg, #ffe032, #eeb533);
+  background-size: 31.875em;
+}
+input[type='range']::-ms-fill-lower {
+  border-radius: 0.5em 0.25em 0.25em 0.5em / 0.5em;
+  background: linear-gradient(90deg, #ffe032, #eeb533);
+  background-size: 31.875em;
+}
+input[type='range']::-webkit-slider-thumb {
+  position: relative;
+  margin-top: -0.4375em;
+  box-sizing: border-box;
+  border: solid .125em #1d1d1b;
+  width: 1.875em;
+  height: 1.875em;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.25em #5fb946, inset 0 0 0 0.375em #1d1d1b, inset 0 0 0 0.9375em #5fb946;
+  background: transparent;
+}
+input[type='range']::-moz-range-thumb {
+  box-sizing: border-box;
+  border: solid .125em #1d1d1b;
+  width: 1.875em;
+  height: 1.875em;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.25em #5fb946, inset 0 0 0 0.375em #1d1d1b, inset 0 0 0 0.9375em #5fb946;
+  background: transparent;
+}
+input[type='range']::-ms-thumb {
+  box-sizing: border-box;
+  border: solid .125em #1d1d1b;
+  width: 1.875em;
+  height: 1.875em;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.25em #5fb946, inset 0 0 0 0.375em #1d1d1b, inset 0 0 0 0.9375em #5fb946;
+  background: transparent;
+}
+input[type='range']::-webkit-slider-runnable-track:before, input[type='range'] /deep/ #track:before {
+  position: absolute;
+  bottom: 1.6875em;
+  left: 0;
+  background: -webkit-linear-gradient(#e2ecf9, #7da4e1);
+  background: linear-gradient(#e2ecf9, #7da4e1);
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-filter: drop-shadow(0 2px 2px #0b0e16);
+          filter: drop-shadow(0 2px 2px #0b0e16);
+  font: 900 1.25em / 1 arial, sans-serif;
+  text-indent: .375em;
+  word-spacing: 3em;
+  white-space: nowrap;
+  content: '1 2 3 4 5 6 7';
+}
+input[type='range']::-webkit-slider-thumb:before, input[type='range'] /deep/ #thumb:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -56%);
+          transform: translate(-50%, -56%);
+  color: #1d1d1b;
+  font: 700 italic 1.25em serif;
+  content: 'c';
+}
+input[type='range']:focus {
+  outline: none;
+  opacity: .99;
+}
+
+html,
+body {
+  height: 100%;
+  background: #4e64a6;
+}
+
+.domready .bg-rect rect,
+.domready .inner-c path {
+  -webkit-animation: fromBgWhite 12s infinite;
+          animation: fromBgWhite 12s infinite;
+}
+
+.domready .bg-circle-big-1 circle,
+.domready .bg-polygon polygon {
+  -webkit-animation: fromBgLightOrange 12s infinite;
+          animation: fromBgLightOrange 12s infinite;
+}
+
+.domready .bg-circle-big-2 circle {
+  -webkit-animation: fromBgBase01 12s infinite;
+          animation: fromBgBase01 12s infinite;
+}
+
+.domready .outer-c path {
+  -webkit-animation: fromBgGreen 12s infinite;
+          animation: fromBgGreen 12s infinite;
+}
+
+.domready .bg-circle-small circle {
+  -webkit-animation: fromBgBase00 12s infinite;
+          animation: fromBgBase00 12s infinite;
+}
+
+.domready .middle-c path {
+  -webkit-animation: fromBgYellow 12s infinite;
+          animation: fromBgYellow 12s infinite;
+}
+
+.domready .inner-c {
+  -webkit-animation: fromBgWhite 12s infinite;
+          animation: fromBgWhite 12s infinite;
+}
+
+@-webkit-keyframes fromBgWhite {
+  0% {
+    fill: white;
+  }
+  16.5% {
+    fill: white;
+  }
+  16.6% {
+    fill: #e0c6a9;
+  }
+  33.2% {
+    fill: #e0c6a9;
+  }
+  33.3% {
+    fill: #b9aa46;
+  }
+  49.9% {
+    fill: #b9aa46;
+  }
+  50% {
+    fill: #439037;
+  }
+  66% {
+    fill: #439037;
+  }
+  66.6% {
+    fill: #453b3e;
+  }
+  83.2% {
+    fill: #453b3e;
+  }
+  83.3% {
+    fill: #292325;
+  }
+  99.9% {
+    fill: #292325;
+  }
+}
+
+@keyframes fromBgWhite {
+  0% {
+    fill: white;
+  }
+  16.5% {
+    fill: white;
+  }
+  16.6% {
+    fill: #e0c6a9;
+  }
+  33.2% {
+    fill: #e0c6a9;
+  }
+  33.3% {
+    fill: #b9aa46;
+  }
+  49.9% {
+    fill: #b9aa46;
+  }
+  50% {
+    fill: #439037;
+  }
+  66% {
+    fill: #439037;
+  }
+  66.6% {
+    fill: #453b3e;
+  }
+  83.2% {
+    fill: #453b3e;
+  }
+  83.3% {
+    fill: #292325;
+  }
+  99.9% {
+    fill: #292325;
+  }
+}
+@-webkit-keyframes fromBgLightOrange {
+  0% {
+    fill: #e0c6a9;
+  }
+  16.5% {
+    fill: #e0c6a9;
+  }
+  16.6% {
+    fill: #b9aa46;
+  }
+  33.2% {
+    fill: #b9aa46;
+  }
+  33.3% {
+    fill: #439037;
+  }
+  49.9% {
+    fill: #439037;
+  }
+  50% {
+    fill: #453b3e;
+  }
+  66% {
+    fill: #453b3e;
+  }
+  66.6% {
+    fill: #292325;
+  }
+  83.2% {
+    fill: #292325;
+  }
+  83.3% {
+    fill: white;
+  }
+  99.9% {
+    fill: white;
+  }
+}
+@keyframes fromBgLightOrange {
+  0% {
+    fill: #e0c6a9;
+  }
+  16.5% {
+    fill: #e0c6a9;
+  }
+  16.6% {
+    fill: #b9aa46;
+  }
+  33.2% {
+    fill: #b9aa46;
+  }
+  33.3% {
+    fill: #439037;
+  }
+  49.9% {
+    fill: #439037;
+  }
+  50% {
+    fill: #453b3e;
+  }
+  66% {
+    fill: #453b3e;
+  }
+  66.6% {
+    fill: #292325;
+  }
+  83.2% {
+    fill: #292325;
+  }
+  83.3% {
+    fill: white;
+  }
+  99.9% {
+    fill: white;
+  }
+}
+@-webkit-keyframes fromBgYellow {
+  0% {
+    fill: #b9aa46;
+  }
+  16.5% {
+    fill: #b9aa46;
+  }
+  16.6% {
+    fill: #439037;
+  }
+  33.2% {
+    fill: #439037;
+  }
+  33.3% {
+    fill: #453b3e;
+  }
+  49.9% {
+    fill: #453b3e;
+  }
+  50% {
+    fill: #292325;
+  }
+  66% {
+    fill: #292325;
+  }
+  66.6% {
+    fill: white;
+  }
+  83.2% {
+    fill: white;
+  }
+  83.3% {
+    fill: #e0c6a9;
+  }
+  99.9% {
+    fill: #e0c6a9;
+  }
+}
+@keyframes fromBgYellow {
+  0% {
+    fill: #b9aa46;
+  }
+  16.5% {
+    fill: #b9aa46;
+  }
+  16.6% {
+    fill: #439037;
+  }
+  33.2% {
+    fill: #439037;
+  }
+  33.3% {
+    fill: #453b3e;
+  }
+  49.9% {
+    fill: #453b3e;
+  }
+  50% {
+    fill: #292325;
+  }
+  66% {
+    fill: #292325;
+  }
+  66.6% {
+    fill: white;
+  }
+  83.2% {
+    fill: white;
+  }
+  83.3% {
+    fill: #e0c6a9;
+  }
+  99.9% {
+    fill: #e0c6a9;
+  }
+}
+@-webkit-keyframes fromBgGreen {
+  0% {
+    fill: #439037;
+  }
+  16.5% {
+    fill: #439037;
+  }
+  16.6% {
+    fill: #453b3e;
+  }
+  33.2% {
+    fill: #453b3e;
+  }
+  33.3% {
+    fill: #292325;
+  }
+  49.9% {
+    fill: #292325;
+  }
+  50% {
+    fill: white;
+  }
+  66% {
+    fill: white;
+  }
+  66.6% {
+    fill: #e0c6a9;
+  }
+  83.2% {
+    fill: #e0c6a9;
+  }
+  83.3% {
+    fill: #b9aa46;
+  }
+  99.9% {
+    fill: #b9aa46;
+  }
+}
+@keyframes fromBgGreen {
+  0% {
+    fill: #439037;
+  }
+  16.5% {
+    fill: #439037;
+  }
+  16.6% {
+    fill: #453b3e;
+  }
+  33.2% {
+    fill: #453b3e;
+  }
+  33.3% {
+    fill: #292325;
+  }
+  49.9% {
+    fill: #292325;
+  }
+  50% {
+    fill: white;
+  }
+  66% {
+    fill: white;
+  }
+  66.6% {
+    fill: #e0c6a9;
+  }
+  83.2% {
+    fill: #e0c6a9;
+  }
+  83.3% {
+    fill: #b9aa46;
+  }
+  99.9% {
+    fill: #b9aa46;
+  }
+}
+@-webkit-keyframes fromBgBase01 {
+  0% {
+    fill: #453b3e;
+  }
+  16.5% {
+    fill: #453b3e;
+  }
+  16.6% {
+    fill: #292325;
+  }
+  33.2% {
+    fill: #292325;
+  }
+  33.3% {
+    fill: white;
+  }
+  49.9% {
+    fill: white;
+  }
+  50% {
+    fill: #e0c6a9;
+  }
+  66% {
+    fill: #e0c6a9;
+  }
+  66.6% {
+    fill: #b9aa46;
+  }
+  83.2% {
+    fill: #b9aa46;
+  }
+  83.3% {
+    fill: #439037;
+  }
+  99.9% {
+    fill: #439037;
+  }
+}
+@keyframes fromBgBase01 {
+  0% {
+    fill: #453b3e;
+  }
+  16.5% {
+    fill: #453b3e;
+  }
+  16.6% {
+    fill: #292325;
+  }
+  33.2% {
+    fill: #292325;
+  }
+  33.3% {
+    fill: white;
+  }
+  49.9% {
+    fill: white;
+  }
+  50% {
+    fill: #e0c6a9;
+  }
+  66% {
+    fill: #e0c6a9;
+  }
+  66.6% {
+    fill: #b9aa46;
+  }
+  83.2% {
+    fill: #b9aa46;
+  }
+  83.3% {
+    fill: #439037;
+  }
+  99.9% {
+    fill: #439037;
+  }
+}
+@-webkit-keyframes fromBgBase00 {
+  0% {
+    fill: #292325;
+  }
+  16.5% {
+    fill: #292325;
+  }
+  16.6% {
+    fill: white;
+  }
+  33.2% {
+    fill: white;
+  }
+  33.3% {
+    fill: #e0c6a9;
+  }
+  49.9% {
+    fill: #e0c6a9;
+  }
+  50% {
+    fill: #b9aa46;
+  }
+  66% {
+    fill: #b9aa46;
+  }
+  66.6% {
+    fill: #439037;
+  }
+  83.2% {
+    fill: #439037;
+  }
+  83.3% {
+    fill: #453b3e;
+  }
+  99.9% {
+    fill: #453b3e;
+  }
+}
+@keyframes fromBgBase00 {
+  0% {
+    fill: #292325;
+  }
+  16.5% {
+    fill: #292325;
+  }
+  16.6% {
+    fill: white;
+  }
+  33.2% {
+    fill: white;
+  }
+  33.3% {
+    fill: #e0c6a9;
+  }
+  49.9% {
+    fill: #e0c6a9;
+  }
+  50% {
+    fill: #b9aa46;
+  }
+  66% {
+    fill: #b9aa46;
+  }
+  66.6% {
+    fill: #439037;
+  }
+  83.2% {
+    fill: #439037;
+  }
+  83.3% {
+    fill: #453b3e;
+  }
+  99.9% {
+    fill: #453b3e;
+  }
+}

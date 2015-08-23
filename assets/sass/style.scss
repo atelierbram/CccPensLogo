@@ -1,0 +1,578 @@
+html,
+body {
+  height: 100%;
+  // background: background;
+}
+body {
+  font: 100%/1.5 sans-serif;
+  margin: 0;
+  padding: 2em;
+}
+svg {
+  min-width: 2em;
+  max-width: 16em;
+}
+.container {
+  clear: both;
+  margin: 0 auto;
+  overflow: auto;
+  // max-width: 120em;
+}
+.container-slider {
+  position: relative;
+  height: 3em;
+  margin-bottom: 1em;
+}
+
+// range slider by Ana Tudor
+// http://codepen.io/thebabydino/pen/vEzMeZ
+$thumb-d: 1.875em;
+$thumb-bg: #5fb946; // #97b9d1;
+$thumb-c: #1d1d1b; // #336994;
+
+$track-u: 5em;
+$track-min: 1;
+$track-max: 7;
+$track-w: ($track-max - $track-min)*$track-u + $thumb-d;
+$track-h: 1em;
+$track-fill: linear-gradient(90deg, #ffe032, #eeb533);
+
+$ruler-line-major-w: 5px;
+$ruler-line-major-h: 2.375em;
+$ruler-line-minor-w: 3px;
+$ruler-line-minor-h: 1.75em;
+$ruler-line-c: #101520 #1d263e #43568c;
+$ruler-txt-bg: linear-gradient(#e2ecf9, #7da4e1);
+$ruler-txt-c: #0b0e16;
+$ruler-txt-fs: 1.25;
+
+@mixin track($flag: false) {
+  width: $track-w; height: $track-h;
+  border-radius: $track-h/2;
+  background: transparent;
+
+  @if $flag {
+    .js & {
+      background: $track-fill no-repeat;
+      background-size: 33% 100%;
+    }
+  }
+}
+
+@mixin fill() {
+  border-radius:
+  #{$track-h/2} #{$track-h/4} #{$track-h/4} #{$track-h/2} / #{$track-h/2};
+  background: $track-fill;
+  background-size: $track-w;
+}
+
+@mixin thumb() {
+  box-sizing: border-box;
+  border: solid .125em #1d1d1b;
+  width: $thumb-d; height: $thumb-d;
+  border-radius: 50%;
+  box-shadow:
+  inset 0 0 0 .25em $thumb-bg,
+  inset 0 0 0 .375em $thumb-c,
+  inset 0 0 0 $thumb-d/2 $thumb-bg;
+  background: transparent;
+}
+
+// html { background: #2c3856; }
+
+input[type='range'] {
+  &,
+  &::-webkit-slider-runnable-track,
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+
+  position: absolute;
+  top: 50%; left: 50%;
+  padding: 0;
+  width: $track-w; height: $ruler-line-major-h;
+  transform: translate(-50%, -50%);
+  background:
+  repeating-linear-gradient(90deg, nth($ruler-line-c, 1),
+  nth($ruler-line-c, 1) 1px, nth($ruler-line-c, 2) 1px,
+  nth($ruler-line-c, 2) 4px, nth($ruler-line-c, 3) 4px,
+  nth($ruler-line-c, 3) 5px, transparent 5px, transparent $track-u),
+  repeating-linear-gradient(90deg, nth($ruler-line-c, 1),
+  nth($ruler-line-c, 1) 1px, nth($ruler-line-c, 2) 1px,
+  nth($ruler-line-c, 2) 2px, nth($ruler-line-c, 3) 2px,
+  nth($ruler-line-c, 3) 3px, transparent 3px, transparent $track-u/10);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size:
+  calc(#{$track-w - $thumb-d} + #{$ruler-line-major-w}) $ruler-line-major-h,
+  calc(#{$track-w - $thumb-d} + #{$ruler-line-major-w}) $ruler-line-minor-h;
+  opacity: .5;
+  font-size: 1em;
+  cursor: pointer;
+
+  &::-webkit-slider-runnable-track {
+    position: relative;
+    @include track(true);
+  }
+  &::-moz-range-track {
+    @include track();
+  }
+  &::-ms-track {
+    border: none;
+    @include track();
+    color: transparent;
+  }
+
+  &::-moz-range-progress {
+    height: $track-h;
+    @include fill();
+  }
+  &::-ms-fill-lower {
+    @include fill();
+  }
+
+  &::-webkit-slider-thumb {
+    position: relative;
+    margin-top: ($track-h - $thumb-d)/2;
+    @include thumb();
+  }
+  &::-moz-range-thumb {
+    @include thumb();
+  }
+  &::-ms-thumb {
+    @include thumb();
+  }
+
+  &::-webkit-slider-runnable-track, /deep/ #track {
+    &:before {
+      position: absolute;
+      bottom: $track-h/2 + $ruler-line-major-h/2; left: 0;
+      background: $ruler-txt-bg;
+      -webkit-background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 2px 2px $ruler-txt-c);
+      font: 900 #{$ruler-txt-fs*1em} / 1 arial, sans-serif;
+      text-indent: .375em;
+      word-spacing: $track-u/$ruler-txt-fs - 1em;
+      white-space: nowrap;
+      content: '1 2 3 4 5 6 7';
+    }
+  }
+
+  &::-webkit-slider-thumb, /deep/ #thumb {
+    &:before {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -56%);
+      color: $thumb-c;
+      font: 700 italic 1.25em serif;
+      content: 'c';
+    }
+  }
+
+  &:focus {
+    outline: none;
+    opacity: .99;
+  }
+}
+
+$base00: hsl(342, 8%, 15%);
+$base01: hsl(342, 8%, 25%);
+$base02: hsl(342, 6%, 45%);
+$base03: hsl(342, 5%, 50%);
+$base04: hsl(342, 4%, 59%);
+$base05: hsl(342, 6%, 65%);
+$base06: hsl(342, 20%, 91%);
+$base07: hsl(342, 90%, 98%);
+$base08: hsl(342, 50%, 55%);
+$base09: hsl(32, 47%, 47%);
+$base0A: hsl(52, 45%, 50%);
+$base0B: hsl(112, 45%, 39%);
+$base0C: hsl(162, 45%, 36%);
+$base0D: hsl(212, 45%, 45%);
+$base0E: hsl(242, 30%, 50%);
+$base0F: hsl(312, 40%, 50%);
+
+$red:     $base08;
+$orange:  $base09;
+$yellow:  $base0A;
+$green:   $base0B;
+$cyan:    $base0C;
+$blue:    $base0D;
+$violet:  $base0E;
+$magenta: $base0F;
+
+$yellow-orange: mix($yellow,$orange,50%);
+$orange-red: mix($orange,$red,50%);
+$red-magenta: mix($red,$magenta,50%);
+$magenta-violet: mix($magenta,$violet,50%);
+$violet-blue: mix($violet,$blue,50%);
+$blue-cyan: mix($blue,$cyan,50%);
+$cyan-green: mix($cyan,$green,50%);
+$green-yellow: mix($green,$yellow,50%);
+
+$dark01: adjust-color($base00, $saturation: -5%, $lightness:-5%);
+$dark02: adjust-color($base00, $saturation: -8%);
+$dark03:  adjust-color($base01, $saturation: -7%);
+$dark04: adjust-color($base01, $saturation: -10%, $lightness:5%);
+$dark05: adjust-color($base01, $saturation: -10%, $lightness:10%);
+$dark06: adjust-color($base01, $saturation: -10%, $lightness:15%);
+$dark07: adjust-color($base01, $saturation: -10%, $lightness:20%);
+$dark08: adjust-color($base01, $saturation: -10%, $lightness:25%);
+$light08: adjust-color($base01,$saturation: -10%, $lightness:30%);
+$light07: adjust-color($base01,$saturation: -10%, $lightness:35%);
+$light06: adjust-color($base01,$saturation: -10%, $lightness:40%);
+$light05: adjust-color($base01,$saturation: -10%, $lightness:45%);
+$light04: adjust-color($base01,$saturation: -10%, $lightness:50%);
+$light03: adjust-color($base01,$saturation: -10%, $lightness:55%);
+$light02: adjust-color($base01,$saturation: -10%, $lightness:60%);
+$light01: adjust-color($base01,$saturation: -10%, $lightness:65%);
+
+$dark_yellow          : adjust-color($yellow,$lightness:-25%);
+$dark_yellow-orange   : adjust-color($yellow-orange,$lightness:-23%);
+$dark_orange          : adjust-color($orange,$lightness:-22%);
+$dark_orange-red      : adjust-color($orange-red,$lightness:-22%);
+$dark_red             : adjust-color($red,$lightness:-22%);
+$dark_red-magenta     : adjust-color($red-magenta,$lightness:-23%);
+$dark_magenta         : adjust-color($magenta,$lightness:-23%);
+$dark_magenta-violet  : adjust-color($magenta-violet,$lightness:-26%);
+$dark_violet          : adjust-color($violet,$lightness:-28%);
+$dark_violet-blue     : adjust-color($violet-blue,$lightness:-32%);
+$dark_blue            : adjust-color($blue,$lightness:-30%);
+$dark_blue-cyan       : adjust-color($blue-cyan,$lightness:-26%);
+$dark_cyan            : adjust-color($cyan,$lightness:-25%);
+$dark_cyan-green      : adjust-color($cyan-green,$lightness:-26%);
+$dark_green           : adjust-color($green,$lightness:-25%);
+$dark_green-yellow   : adjust-color($green-yellow,$lightness: -25%);
+
+$light_yellow         : adjust-color($yellow,$lightness:30%);
+$light_orange         : adjust-color($orange,$lightness:30%);
+$light_yellow-orange  : mix($light_yellow,$light_orange,50%);
+$light_red            : adjust-color($red,$lightness:20%);
+$light_orange-red     : mix($light_orange,$light_red,50%);
+$light_magenta        : adjust-color($magenta,$lightness:20%);
+$light_red-magenta    : mix($light_red,$light_magenta,50%);
+$light_violet         : adjust-color($violet,$lightness:10%);
+$light_magenta-violet : mix($light_magenta,$light_violet,50%);
+$light_blue           : adjust-color($blue,$lightness:20%);
+$light_violet-blue    : mix($light_violet,$light_blue,50%);
+$light_cyan           : adjust-color($cyan,$lightness:20%);
+$light_blue-cyan      : mix($light_blue,$light_cyan,50%);
+$light_green          : adjust-color($green,$lightness:20%);
+$light_cyan-green     : mix($light_cyan,$light_green,50%);
+$light_green-yellow   : adjust-color($green-yellow,$lightness:20%);
+
+$purple: $violet-blue;
+$dark_purple: $dark_violet-blue;
+$light_purple: $light_violet-blue;
+
+$white : hsl(0,100%,100%);
+
+// $white
+// $base00: hsl(342, 8%, 15%);
+// $yellow: hsl(52, 45%, 50%);
+// $base01: hsl(342,8%,25%)
+// $light_orange;
+// $green;
+
+html,
+body {
+  height: 100%;
+  background: $purple;
+}
+
+.domready .bg-rect rect,
+.domready .inner-c path {
+  animation: fromBgWhite 12s infinite;
+}
+
+.domready .bg-circle-big-1 circle,
+.domready .bg-polygon polygon {
+  animation: fromBgLightOrange 12s infinite;
+}
+
+.domready .bg-circle-big-2 circle {
+  animation: fromBgBase01 12s infinite;
+}
+
+.domready .outer-c path {
+  animation: fromBgGreen 12s infinite;
+}
+
+.domready .bg-circle-small circle {
+  animation: fromBgBase00 12s infinite;
+}
+
+.domready .middle-c path {
+  animation: fromBgYellow 12s infinite;
+}
+
+.domready .inner-c {
+  animation: fromBgWhite 12s infinite;
+}
+
+@keyframes fromBgWhite {
+  0% {
+    fill: $white;
+  }
+  16.5% {
+    fill: $white;
+  }
+
+  16.6% {
+    fill: $light_orange;
+  }
+  33.2% {
+    fill: $light_orange;
+  }
+
+  33.3% {
+    fill: $yellow;
+  }
+  49.9% {
+    fill: $yellow;
+  }
+
+  50% {
+    fill: $green;
+  }
+  66% {
+    fill: $green;
+  }
+
+  66.6% {
+    fill: $base01;
+  }
+  83.2% {
+    fill: $base01;
+  }
+
+  83.3% {
+    fill: $base00;
+  }
+  99.9% {
+    fill: $base00;
+  }
+}
+
+@keyframes fromBgLightOrange {
+  0% {
+    fill: $light_orange;
+  }
+  16.5% {
+    fill: $light_orange;
+  }
+
+  16.6% {
+    fill: $yellow;
+  }
+  33.2% {
+    fill: $yellow;
+  }
+
+  33.3% {
+    fill: $green;
+  }
+  49.9% {
+    fill: $green;
+  }
+
+  50% {
+    fill: $base01;
+  }
+  66% {
+    fill: $base01;
+  }
+
+  66.6% {
+    fill: $base00;
+  }
+  83.2% {
+    fill: $base00;
+  }
+
+  83.3% {
+    fill: $white;
+  }
+  99.9% {
+    fill: $white;
+  }
+}
+
+@keyframes fromBgYellow {
+  0% {
+    fill: $yellow;
+  }
+  16.5% {
+    fill: $yellow;
+  }
+
+  16.6% {
+    fill: $green;
+  }
+  33.2% {
+    fill: $green;
+  }
+
+  33.3% {
+    fill: $base01;
+  }
+  49.9% {
+    fill: $base01;
+  }
+
+  50% {
+    fill: $base00;
+  }
+  66% {
+    fill: $base00;
+  }
+
+  66.6% {
+    fill: $white;
+  }
+  83.2% {
+    fill: $white;
+  }
+
+  83.3% {
+    fill: $light_orange;
+  }
+  99.9% {
+    fill: $light_orange;
+  }
+}
+
+@keyframes fromBgGreen {
+  0% {
+    fill: $green;
+  }
+  16.5% {
+    fill: $green;
+  }
+
+  16.6% {
+    fill: $base01;
+  }
+  33.2% {
+    fill: $base01;
+  }
+
+  33.3% {
+    fill: $base00;
+  }
+  49.9% {
+    fill: $base00;
+  }
+
+  50% {
+    fill: $white;
+  }
+  66% {
+    fill: $white;
+  }
+
+  66.6% {
+    fill: $light_orange;
+  }
+  83.2% {
+    fill: $light_orange;
+  }
+
+  83.3% {
+    fill: $yellow;
+  }
+  99.9% {
+    fill: $yellow;
+  }
+}
+
+@keyframes fromBgBase01 {
+  0% {
+    fill: $base01;
+  }
+  16.5% {
+    fill: $base01;
+  }
+
+  16.6% {
+    fill: $base00;
+  }
+  33.2% {
+    fill: $base00;
+  }
+
+  33.3% {
+    fill: $white;
+  }
+  49.9% {
+    fill: $white;
+  }
+
+  50% {
+    fill: $light_orange;
+  }
+  66% {
+    fill: $light_orange;
+  }
+
+  66.6% {
+    fill: $yellow;
+  }
+  83.2% {
+    fill: $yellow;
+  }
+
+  83.3% {
+    fill: $green;
+  }
+  99.9% {
+    fill: $green;
+  }
+}
+
+@keyframes fromBgBase00 {
+  0% {
+    fill: $base00;
+  }
+  16.5% {
+    fill: $base00;
+  }
+
+  16.6% {
+    fill: $white;
+  }
+  33.2% {
+    fill: $white;
+  }
+
+  33.3% {
+    fill: $light_orange;
+  }
+  49.9% {
+    fill: $light_orange;
+  }
+
+  50% {
+    fill: $yellow;
+  }
+  66% {
+    fill: $yellow;
+  }
+
+  66.6% {
+    fill: $green;
+  }
+  83.2% {
+    fill: $green;
+  }
+
+  83.3% {
+    fill: $base01;
+  }
+  99.9% {
+    fill: $base01;
+  }
+}
+
+
