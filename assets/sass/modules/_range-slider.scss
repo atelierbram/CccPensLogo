@@ -1,0 +1,151 @@
+// range slider by Ana Tudor
+// http://codepen.io/thebabydino/pen/vEzMeZ
+$thumb-d: 1.875em;
+$thumb-bg: #5fb946; // #97b9d1;
+$thumb-c: #1d1d1b; // #336994;
+
+$track-u: 5em;
+$track-min: 1;
+$track-max: 7;
+$track-w: ($track-max - $track-min)*$track-u + $thumb-d;
+$track-h: 1em;
+$track-fill: linear-gradient(90deg, #ffe032, #eeb533);
+
+$ruler-line-major-w: 5px;
+$ruler-line-major-h: 2.375em;
+$ruler-line-minor-w: 3px;
+$ruler-line-minor-h: 1.75em;
+$ruler-line-c: #101520 #1d263e #43568c;
+$ruler-txt-bg: linear-gradient(#e2ecf9, #7da4e1);
+$ruler-txt-c: #0b0e16;
+$ruler-txt-fs: 1.25;
+
+@mixin track($flag: false) {
+  width: $track-w; height: $track-h;
+  border-radius: $track-h/2;
+  background: transparent;
+
+  @if $flag {
+    .js & {
+      background: $track-fill no-repeat;
+      background-size: 33% 100%;
+    }
+  }
+}
+
+@mixin fill() {
+  border-radius:
+  #{$track-h/2} #{$track-h/4} #{$track-h/4} #{$track-h/2} / #{$track-h/2};
+  background: $track-fill;
+  background-size: $track-w;
+}
+
+@mixin thumb() {
+  box-sizing: border-box;
+  border: solid .125em #1d1d1b;
+  width: $thumb-d; height: $thumb-d;
+  border-radius: 50%;
+  box-shadow:
+  inset 0 0 0 .25em $thumb-bg,
+  inset 0 0 0 .375em $thumb-c,
+  inset 0 0 0 $thumb-d/2 $thumb-bg;
+  background: transparent;
+}
+
+// html { background: #2c3856; }
+
+input[type='range'] {
+  &,
+  &::-webkit-slider-runnable-track,
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+
+  position: absolute;
+  top: 50%; left: 50%;
+  padding: 0;
+  width: $track-w; height: $ruler-line-major-h;
+  transform: translate(-50%, -50%);
+  background:
+  repeating-linear-gradient(90deg, nth($ruler-line-c, 1),
+  nth($ruler-line-c, 1) 1px, nth($ruler-line-c, 2) 1px,
+  nth($ruler-line-c, 2) 4px, nth($ruler-line-c, 3) 4px,
+  nth($ruler-line-c, 3) 5px, transparent 5px, transparent $track-u),
+  repeating-linear-gradient(90deg, nth($ruler-line-c, 1),
+  nth($ruler-line-c, 1) 1px, nth($ruler-line-c, 2) 1px,
+  nth($ruler-line-c, 2) 2px, nth($ruler-line-c, 3) 2px,
+  nth($ruler-line-c, 3) 3px, transparent 3px, transparent $track-u/10);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size:
+  calc(#{$track-w - $thumb-d} + #{$ruler-line-major-w}) $ruler-line-major-h,
+  calc(#{$track-w - $thumb-d} + #{$ruler-line-major-w}) $ruler-line-minor-h;
+  opacity: .5;
+  font-size: 1em;
+  cursor: pointer;
+
+  &::-webkit-slider-runnable-track {
+    position: relative;
+    @include track(true);
+  }
+  &::-moz-range-track {
+    @include track();
+  }
+  &::-ms-track {
+    border: none;
+    @include track();
+    color: transparent;
+  }
+
+  &::-moz-range-progress {
+    height: $track-h;
+    @include fill();
+  }
+  &::-ms-fill-lower {
+    @include fill();
+  }
+
+  &::-webkit-slider-thumb {
+    position: relative;
+    margin-top: ($track-h - $thumb-d)/2;
+    @include thumb();
+  }
+  &::-moz-range-thumb {
+    @include thumb();
+  }
+  &::-ms-thumb {
+    @include thumb();
+  }
+
+  &::-webkit-slider-runnable-track, /deep/ #track {
+    &:before {
+      position: absolute;
+      bottom: $track-h/2 + $ruler-line-major-h/2; left: 0;
+      background: $ruler-txt-bg;
+      -webkit-background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 2px 2px $ruler-txt-c);
+      font: 900 #{$ruler-txt-fs*1em} / 1 arial, sans-serif;
+      text-indent: .375em;
+      word-spacing: $track-u/$ruler-txt-fs - 1em;
+      white-space: nowrap;
+      content: '1 2 3 4 5 6 7';
+    }
+  }
+
+  &::-webkit-slider-thumb, /deep/ #thumb {
+    &:before {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -56%);
+      color: $thumb-c;
+      font: 700 italic 1.25em serif;
+      content: 'c';
+    }
+  }
+
+  &:focus {
+    outline: none;
+    opacity: .99;
+  }
+}
